@@ -10,18 +10,11 @@ function getComputerChoice() {
     }
 }
 
-console.log(getComputerChoice());
-
 function getHumanChoice() {
     return prompt('Break/Cut/Wrap?');
 }
 
-console.log(getHumanChoice());
-
-let humanScore = 0;
-let computerScore = 0;
-
-function playRound(humanChoice, computerChoice) {
+function isUserTheWinner(humanChoice, computerChoice) {
     humanChoice = humanChoice.toUpperCase();
     computerChoice = computerChoice.toUpperCase();
 
@@ -31,11 +24,35 @@ function playRound(humanChoice, computerChoice) {
         || (humanChoice === 'SCISSORS' && computerChoice === 'PAPER')
     );
 
-    if (humanWins) {
-        console.log(`You Win! ${humanChoice} beats ${computerChoice}`);
-        humanScore++;
+    let message = humanWins ? `You Win! ${humanChoice} beats ${computerChoice}` : `You Lose! ${computerChoice} beats ${humanChoice}`;
+    console.log(message);
+
+    return humanWins;
+}
+
+function playGame() {
+    let humanScore = 0;
+    let computerScore = 0;
+
+    let round = 0;
+    while (round < 5) {
+        let humanChoice = getHumanChoice();
+        let computerChoice = getComputerChoice();
+
+        if (humanChoice === computerChoice) {
+            console.log('It\'s a tie!');
+            continue;
+        }
+
+        isUserTheWinner(humanChoice, computerChoice) ? humanScore++ : computerScore++;
+        round++;
+    }
+
+    if (humanScore > computerScore) {
+        console.log(`You win! Final score: ${humanScore} - ${computerScore}`);
     } else {
-        console.log(`You Lose! ${computerChoice} beats ${humanChoice}`);
-        computerScore++;
+        console.log(`You lose! Final score: ${computerScore} - ${humanScore}`);
     }
 }
+
+playGame();
