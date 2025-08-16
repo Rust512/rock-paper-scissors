@@ -11,3 +11,9 @@ function getComputerChoice() {
 }
 
 console.log(getComputerChoice());
+
+function getHumanChoice() {
+    return prompt('Break/Cut/Wrap?');
+}
+
+console.log(getHumanChoice());
